@@ -1149,6 +1149,12 @@ body.nofl{overflow:hidden}
 .finp h3{font-size:24px;letter-spacing:-.03em;margin:10px 0 0;font-weight:650}
 .finp .fin{margin:0}
 @media(max-width:760px){.finp{padding:16px 14px;border-radius:22px}.finp h3{font-size:19px}.fk .v{font-size:24px}.wf{height:150px}}
+.plt{font-size:12.5px}.plt th,.plt td{padding:7px 8px;white-space:nowrap}.plt .plb td{font-weight:650}.plt .ple td{font-weight:700;color:var(--green-d);background:var(--mint)}
+.cmp2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 6px}.cmp2 div{display:flex;flex-direction:column;gap:2px}.cmp2 span{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}.cmp2 b{font-size:21px;font-weight:650;letter-spacing:-.03em;font-variant-numeric:tabular-nums}.cmp2 b small{display:block;font-size:11px;font-weight:500;color:var(--mute);letter-spacing:0}
+.pl2 th,.pl2 td{padding:6px 7px;font-size:12px}.pl2 .g1{border-left:1px solid var(--line)}.pl2 .plp td{color:var(--mute);font-style:italic}
+.fg2{grid-template-columns:minmax(0,1fr)}.fg2>div:last-child{display:grid!important;grid-template-columns:1fr 1fr}@media(max-width:980px){.fg2>div:last-child{grid-template-columns:1fr}}.fg3{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}.fg>*{min-width:0}
+.cmp .r{display:grid;grid-template-columns:86px 1fr 80px;gap:10px;align-items:center;font-size:12.5px;margin:10px 0}.cmp .r b{text-align:right}.cmp i{display:block;height:10px;border-radius:9px}
+@media(max-width:980px){.fg2,.fg3{grid-template-columns:1fr}}
 </style></head><body>
 <nav class="nav"><span class="pf">PARFOIS</span><span id="ttl"></span><div class="tabs" id="cities"></div><div class="cur" id="cur"><button data-c="MXN">MXN</button><button data-c="EUR" class="on">EUR</button><label title="Tipo de cambio MXN por EUR">TC <input id="fx" type="number" step="0.05" min="1" value="20.50"></label></div><button class="eye on" id="eye" title="Mostrar u ocultar cifras de venta">Cifras visibles</button></nav>
 <nav class="nav nav2 hide" id="nav2"><div class="tabs" id="tabs"></div></nav>
@@ -1780,8 +1786,99 @@ function finPanel(id){const f=CFIN[id];if(!f)return '';
   <div class="card rk"><h4>Posición entre 22 corners Liverpool</h4><div><span>Venta por m²</span><b>#${f.rk[0]}</b></div><div><span>Margen EBITDA</span><b>#${f.rk[1]}</b></div><div><span>Cumplimiento de budget</span><b>#${f.rk[2]}</b></div><div><span>Peso en la venta de México</span><b>${nf1(f.sh*100)}%</b></div></div>
   <div class="card stone"><h4>Lectura de corner</h4><ul class="ins">${f.ins.map(x=>`<li>${x}</li>`).join('')}</ul></div>
  </div></div></div>`}
+
+/* ---------- P&L PROYECTO (simulación Parfois · k€) ---------- */
+const PFIN={'17':{ttl:'La Isla Cancún',
+ rows:[['Venta tienda',[700,735,772],[1,1,1],[.05,.05],479,1,'b'],['Margen bruto',[550,578,607],[.786,.786,.786],[.05,.05],376,.786,''],['Transporte a tienda',[169,178,187],[.242,.242,.242],[.05,.05],116,.242,'c'],['Margen de contribución',[355,373,392],[.507,.507,.507],[.05,.05],243,.507,'b'],['Personal',[72,74,76],[.103,.101,.098],[.03,.03],52,.108,'c'],['Renta',[168,173,179],[.239,.236,.231],[.03,.03],168,.35,'c'],['Otros',[26,27,28],[.037,.037,.036],[.04,.04],24,.05,'c'],['EBITDA',[89,99,109],[.127,.134,.141],[.10,.11],0,0,'e'],['EBIT',[54,63,73],[.076,.085,.095],[.17,.17],null,null,'']],
+ capT:293,capP:250,tr:470,pb:3.7,tir:.36,be:478661,nbv:0}};
+PFIN['43']={ttl:'Andares',
+ rows:[['Venta tienda',[1200,1260,1323],[1,1,1],[.05,.05],583,1,'b'],['Margen bruto',[823,864,907],[.686,.686,.686],[.05,.05],400,.686,''],['Transporte a tienda',[290,305,320],[.242,.242,.242],[.05,.05],141,.242,'c'],['Margen de contribución',[489,513,539],[.407,.407,.407],[.05,.05],238,.407,'b'],['Personal',[107,110,118],[.089,.087,.089],[.03,.07],59,.10,'c'],['Renta',[135,140,144],[.112,.111,.109],[.04,.03],135,.231,'c'],['Otros',[49,50,52],[.041,.04,.039],[.02,.02],44,.076,'c'],['EBITDA',[198,213,225],[.165,.169,.17],[.08,.06],0,0,'e'],['EBIT',[169,185,197],[.141,.147,.149],[.09,.06],null,null,'']],
+ capT:178,capP:200,tr:798,pb:1.9,tir:1.03,be:583139,nbv:0};
+function projPanel(id){const f=PFIN[id];if(!f)return '';const R=k=>f.rows.find(r=>r[0]===k);const v=R('Venta tienda'),e=R('EBITDA'),rt=R('Renta');
+ const k=x=>{const a=Math.abs(x),sg=x<0?'−':'';if(SHOW&&a>=1000)return sg+(CURR==='EUR'?'€'+(a/1000).toFixed(2)+'M':'$'+nf1(a*FX/1000)+'M');return sg+cfm(a*1000).replace(/\.0(k|M)$/,'$1')},ms=1-f.be/(v[1][0]*1000);const inv=f.capP+f.tr;
+ const mx=Math.max(...e[1]);
+ return `<div class="finp${FINOPEN[id]?' on':''}" id="finp-${id}"><div class="ttl">P&amp;L simulado a 3 años · miles de euros</div><div class="fin"><h3>Proyecto rentable desde el año 1: EBITDA de ${k(e[1][0])} (${nf1(e[2][0]*100)}%), TIR de ${Math.round(f.tir*100)}% y payback de ${nf1(f.pb)} años</h3>
+ <div class="fh"><span><b>Parfois · ${f.ttl}</b></span><span>Tienda propia · proyecto</span><span>Real 2025 y budget 2026: sin venta</span><span class="tag t-pre">● Proyecto · simulación</span><span class="tag t-up">▲ Breakeven al ${nf1(f.be/(v[1][0]*1000)*100)}% de la venta</span><span style="margin-left:auto">Fuente: P&amp;L Parfois · simulación · k€</span></div>
+ <div class="fk">
+  <div class="k"><div class="l">Venta año 1</div><div class="v">${k(v[1][0])}</div><div class="c"><span>año 2 <b>${k(v[1][1])}</b> <b class="up">▲ +5%</b></span><span>año 3 <b>${k(v[1][2])}</b> <b class="up">▲ +5%</b></span></div></div>
+  <div class="k"><div class="l">EBITDA año 1</div><div class="v">${k(e[1][0])}</div><div class="c"><span>margen <b class="up">${nf1(e[2][0]*100)}%</b></span><span>año 3 <b>${k(e[1][2])}</b> · ${nf1(e[2][2]*100)}%</span></div></div>
+  <div class="k"><div class="l">Breakeven de venta</div><div class="v">${cfm(f.be)}</div><div class="c"><span>margen de seguridad <b class="up">${nf1(ms*100)}%</b></span><span>renta = ${nf1(rt[5]*100)}% de la venta</span></div></div>
+  <div class="k"><div class="l">TIR · Payback</div><div class="v">${Math.round(f.tir*100)}<small>%</small></div><div class="c"><span>payback <b>${nf1(f.pb)} años</b></span><span>EBIT año 1 <b>${k(R('EBIT')[1][0])}</b></span></div></div>
+  <div class="k"><div class="l">Inversión</div><div class="v">${k(inv)}</div><div class="c"><span>CAPEX propuesto <b>${k(f.capP)}</b> · teórico ${k(f.capT)}</span><span>traspaso <b>${k(f.tr)}</b></span></div></div>
+ </div>
+ <div class="fg fg3">
+  <div class="card"><h4>P&amp;L simulado · año 1 a año 3</h4><div class="tw" style="border:0;border-radius:0"><table class="plt"><thead><tr><th>Concepto</th><th class="r">Año 1</th><th class="r">Año 2</th><th class="r">Año 3</th><th class="r">% venta A1</th><th class="r">% venta A3</th><th class="r">A2/A1</th><th class="r">A3/A2</th><th class="r">Breakeven</th></tr></thead><tbody>
+  ${f.rows.map(r=>`<tr class="${r[6]==='b'?'plb':r[6]==='e'?'ple':''}"><td>${r[0]}</td>${r[1].map(x=>`<td class="r">${r[6]==='c'?'−':''}${k(x)}</td>`).join('')}<td class="r">${nf1(r[2][0]*100)}%</td><td class="r">${nf1(r[2][2]*100)}%</td><td class="r">+${Math.round(r[3][0]*100)}%</td><td class="r">+${Math.round(r[3][1]*100)}%</td><td class="r">${r[4]==null?'—':(r[6]==='c'?'−':'')+k(r[4])+` <span style="color:var(--faint)">${nf1(r[5]*100)}%</span>`}</td></tr>`).join('')}
+  </tbody></table></div><p class="nt">Cifras simuladas en miles de euros. Real 2025 y budget 2026 en cero: hoy no hay tienda en ${f.ttl}.</p></div>
+  <div style="display:flex;flex-direction:column;gap:14px">
+   <div class="card"><h4>EBITDA y margen por año</h4><div class="wf" style="grid-template-columns:repeat(3,1fr);height:150px">${e[1].map((x,i)=>`<div class="col"><b>${k(x)}</b><div class="bar" style="height:${Math.round(x/mx*110)}px;background:${i?'#1E9E6A':'#111'}"></div><em>Año ${i+1} · ${nf1(e[2][i]*100)}%</em></div>`).join('')}</div></div>
+   <div class="card"><h4>Venta año 1 vs breakeven</h4><div class="prog" style="height:14px"><i style="width:${(f.be/(v[1][0]*1000)*100).toFixed(1)}%;background:#A3A6AB"></i></div><div style="display:flex;justify-content:space-between;font-size:12px;color:var(--mute)"><span>Breakeven ${cfm(f.be)}</span><span>Venta año 1 ${k(v[1][0])}</span></div><p style="font-size:12px;color:var(--mute);margin:8px 0 0">La venta puede caer ${nf1(ms*100)}% antes de perder dinero a nivel EBITDA.</p></div>
+  </div>
+ </div>
+ <div class="f3">
+  <div class="card"><h4>Retorno de la inversión</h4><div class="v" style="font-size:30px;font-weight:650;letter-spacing:-.04em">${nf1(f.pb)} años</div><div style="font-size:12px;color:var(--mute);margin-top:6px">Payback sobre ${k(inv)} de inversión total (CAPEX ${k(f.capP)} + traspaso ${k(f.tr)}). TIR ${Math.round(f.tir*100)}%.</div></div>
+  <div class="card rk"><h4>Estructura de costes · año 1</h4>${f.rows.filter(r=>r[6]==='c').map(r=>`<div><span>${r[0]}</span><b>${nf1(r[2][0]*100)}% · ${k(r[1][0])}</b></div>`).join('')}<div><span>Margen de contribución</span><b>${nf1(R('Margen de contribución')[2][0]*100)}%</b></div></div>
+  <div class="card stone"><h4>Lectura del proyecto</h4><ul class="ins"><li><b>Rentable desde el primer año:</b> EBITDA de ${k(e[1][0])} (${nf1(e[2][0]*100)}%) que sube a ${nf1(e[2][2]*100)}% en el año 3 por apalancamiento de renta y personal.</li><li><b>La renta es la palanca:</b> ${nf1(rt[2][0]*100)}% de la venta en el año 1; en breakeven llega a ${nf1(rt[5]*100)}%.</li><li><b>El traspaso pesa más que el CAPEX:</b> ${k(f.tr)} de ${k(inv)}; negociarlo es lo que más acorta el payback.</li></ul></div>
+ </div></div></div>`}
+
+/* ---------- P&L COMPARATIVO Santa Fe · MXP28 · Franquicia vs Propia (k€) ---------- */
+PFIN['5']={cmp:1,ttl:'Santa Fe · MXP28',
+ kp:{sales:[857.3,1200],e1:[58.3,209.3],e1p:[.068,.174],e3:[66.7,232.3],ecum:[187.4,661.9],inc:[-15.8,220.6],capex:[168.3,225.6],pb:[null,2.2],irr:[null,.957],gm:[.31,.686],cm:[.235,.407],begm:[.242,.511],bes:[609.1,339.3]},
+ cur:{s:857.3,e:82.3,ep:.096},
+ rows:[['Venta',857.3,[857.3,891.6,927.2],[1200,1248,1297.9],1069.8,'b'],['Coste de mercancía',-591.5,[-591.5,-615.2,-639.8],[-376.9,-392,-407.7],669.9,''],['Margen bruto',265.8,[265.8,276.4,287.4],[823.1,856,890.2],1739.7,'b'],['% margen bruto','31.0%',['31.0%','31.0%','31.0%'],['68.6%','68.6%','68.6%'],'+37.6 pp','p'],
+  ['Roturas y defectos',-4.3,[-4.3,-4.5,-4.6],[-10.4,-10.8,-11.2],-19,''],['Transporte a tienda',-33.6,[-51.4,-53.5,-55.6],[-290.2,-301.8,-313.9],-745.4,''],['APTs / TPAs',-5.6,[-8.6,-8.9,-9.3],[-33.6,-34.9,-36.3],-78.1,''],
+  ['Margen de contribución',222.3,[201.5,209.5,217.9],[488.9,508.4,528.8],897.2,'b'],['% margen de contribución','25.9%',['23.5%','23.5%','23.5%'],['40.7%','40.7%','40.7%'],'+17.2 pp','p'],
+  ['Personal',-36,[-40.8,-42,-43.3],[-106.9,-109.5,-112.1],-202.3,''],['Renta fija',-69.9,[-69.9,-72,-74.2],[-133.7,-137.7,-141.8],-197.1,''],['Gastos comunes',-14,[-10,-10,-10],[-10,-11,-11.6],-2.6,''],['Renta total',-83.9,[-79.9,-82,-84.2],[-143.7,-148.7,-153.4],-199.6,'b'],
+  ['Otros (suministros y servicios)',-20.1,[-22.4,-23.1,-23.8],[-29,-30,-31],-20.7,''],['EBITDA',82.3,[58.3,62.4,66.7],[209.3,220.3,232.3],474.5,'e'],['% EBITDA','9.6%',['6.8%','7.0%','7.2%'],['17.4%','17.7%','17.9%'],'+10.7 pp','p']]};
+PFIN['4']={cmp:1,ttl:'Perisur · MXP30',
+ kp:{sales:[1172.4,1200],e1:[108.5,209.3],e1p:[.093,.174],e3:[119.5,232.3],ecum:[341.9,661.9],inc:[-5.2,220.6],capex:[168.3,225.6],pb:[null,2.2],irr:[null,.957],gm:[.31,.686],cm:[.235,.407],begm:[.217,.511],bes:[710.6,339.3]},
+ cur:{s:1172.4,e:125,ep:.107},
+ rows:[['Venta',1172.4,[1172.4,1219.2,1268],[1200,1248,1297.9],86.3,'b'],['Coste de mercancía',-808.9,[-808.9,-841.3,-874.9],[-376.9,-392,-407.7],1348.5,''],['Margen bruto',363.4,[363.4,378,393.1],[823.1,856,890.2],1434.8,'b'],['% margen bruto','31.0%',['31.0%','31.0%','31.0%'],['68.6%','68.6%','68.6%'],'+37.6 pp','p'],
+  ['Roturas y defectos',-5.9,[-5.9,-6.1,-6.3],[-10.4,-10.8,-11.2],-14.1,''],['Transporte a tienda',-33.6,[-70.3,-73.2,-76.1],[-290.2,-301.8,-313.9],-686.4,''],['APTs / TPAs',-5.6,[-11.7,-12.2,-12.7],[-33.6,-34.9,-36.3],-68.3,''],
+  ['Margen de contribución',318.4,[275.5,286.5,298],[488.9,508.4,528.8],666.1,'b'],['% margen de contribución','27.2%',['23.5%','23.5%','23.5%'],['40.7%','40.7%','40.7%'],'+17.2 pp','p'],
+  ['Personal',-36,[-40.8,-42,-43.3],[-106.9,-109.5,-112.1],-202.3,''],['Renta fija',-124.6,[-69.9,-72,-74.2],[-133.7,-137.7,-141.8],-197.1,''],['Renta variable','—',[-23.9,-25.5,-27.2],['—','—','—'],76.6,''],['Gastos comunes',-12.7,[-10,-10,-10],[-10,-11,-11.6],-2.6,''],['Renta total',-137.3,[-103.8,-107.5,-111.4],[-143.7,-148.7,-153.4],-123,'b'],
+  ['Otros (suministros y servicios)',-20.1,[-22.4,-23.1,-23.8],[-29,-30,-31],-20.7,''],['EBITDA',125,[108.5,113.9,119.5],[209.3,220.3,232.3],320,'e'],['% EBITDA','10.7%',['9.3%','9.3%','9.4%'],['17.4%','17.7%','17.9%'],'+8.3 pp','p']]};
+function cmpPanel(id){const f=PFIN[id],K=f.kp;
+ const k=x=>{if(x==null)return '—';const sg=x<0?'−':'',a=Math.abs(x);if(SHOW&&a>=1000)return sg+(CURR==='EUR'?'€'+(a/1000).toFixed(2)+'M':'$'+nf1(a*FX/1000)+'M');return sg+cfm(a*1000).replace(/\.0(k|M)$/,'$1')};
+ const kd=x=>x===0?'—':(x>0?'+':'−')+cfm(Math.abs(x)*1000).replace(/\.0(k|M)$/,'$1');
+ const pc1=x=>(x<0?'−':'')+nf1(Math.abs(x*100))+'%';
+ const card=(l,a,b,d,n)=>`<div class="k"><div class="l">${l}</div><div class="cmp2"><div><span>Franquicia</span><b class="${n&&n[0]||''}">${a}</b></div><div><span>Propia</span><b class="${n&&n[1]||''}">${b}</b></div></div><div class="c"><span>Δ propia – franquicia <b>${d}</b></span></div></div>`;
+ const E=f.rows.find(r=>r[0]==='EBITDA');const mx=Math.max(...E[3]);
+ const bar=(v,c)=>`<div style="height:${Math.max(3,Math.round(Math.abs(v)/mx*110))}px;background:${v<0?'#C8372D':c};border-radius:6px 6px 3px 3px"></div>`;
+ const sm=[0,1].map(i=>(K.sales[i]-K.bes[i])/K.sales[i]),top=Math.max(K.sales[1],K.bes[0]);
+ const beRow=(i,lab,col)=>`<div class="r"><span>${lab}</span><i style="width:${(K.bes[i]/top*100).toFixed(1)}%;background:${col}"></i><b>${k(K.bes[i])}</b></div><div style="font-size:11.5px;color:${sm[i]>=0?'var(--green-d)':'var(--red)'};margin:-4px 0 8px">Venta ${k(K.sales[i])}: ${sm[i]>=0?'margen de seguridad de '+nf1(sm[i]*100)+'%':nf1(Math.abs(sm[i])*100)+'% por debajo del breakeven'}</div>`;
+ return `<div class="finp on" id="plp-${id}"><div class="ttl">Reubicación · franquicia vs tienda propia · miles de euros</div><div class="fin"><h3>Como tienda propia, ${f.ttl.split(' · ')[0]} multiplica por ${nf1(K.e1[1]/K.e1[0])} el EBITDA del año 1: ${k(K.e1[1])} (${pc1(K.e1p[1])}) frente a ${k(K.e1[0])} (${pc1(K.e1p[0])}) como franquicia reubicada</h3>
+ <div class="fh"><span><b>Parfois · ${f.ttl}</b></span><span>Hoy: franquicia FY25 · venta ${k(f.cur.s)} · EBITDA ${k(f.cur.e)} (${pc1(f.cur.ep)})</span><span class="tag t-pre">● Comparativa · simulación</span><span style="margin-left:auto">Franquicia: plantilla P&amp;L tienda (A1–A5) · Propia: plantilla HQ (A1–A3)</span></div>
+ <div class="fk">
+  ${card('Venta año 1',k(K.sales[0]),k(K.sales[1]),kd(K.sales[1]-K.sales[0]))}
+  ${card('EBITDA año 1',`${k(K.e1[0])}<small>${pc1(K.e1p[0])} de la venta</small>`,`${k(K.e1[1])}<small>${pc1(K.e1p[1])} de la venta</small>`,kd(K.e1[1]-K.e1[0]),['','up'])}
+  ${card('Margen bruto · año 1',pc1(K.gm[0]),pc1(K.gm[1]),'+37.6 pp')}
+  ${card('CAPEX',`${k(K.capex[0])}<small>€1,000/m² · mobiliario reutilizado</small>`,`${k(K.capex[1])}<small>€2,500/m² · mobiliario nuevo</small>`,kd(K.capex[1]-K.capex[0]))}
+  ${card('Payback · TIR',`+++<small>negativo o &gt;20 años · TIR n/a</small>`,`${nf1(K.pb[1])} años<small>TIR ${nf1(K.irr[1]*100)}% (HQ, 7 años)</small>`,'n/a',['dn','up'])}
+ </div>
+ <div class="fg fg2">
+  <div class="card"><h4>P&amp;L · actual, franquicia y tienda propia</h4><div class="tw" style="border:0;border-radius:0"><table class="plt pl2"><thead><tr><th>Concepto</th><th class="r">Actual FY25</th><th class="r g1">Franq. A1</th><th class="r">A2</th><th class="r">A3</th><th class="r g1">Propia A1</th><th class="r">A2</th><th class="r">A3</th><th class="r g1">Δ A1–A3</th></tr></thead><tbody>
+  ${f.rows.map(r=>{const fm=v=>typeof v==='string'?v:k(v);return `<tr class="${r[5]==='b'?'plb':r[5]==='e'?'ple':r[5]==='p'?'plp':''}"><td>${r[0]}</td><td class="r">${fm(r[1])}</td>${r[2].map((v,i)=>`<td class="r${i?'':' g1'}">${fm(v)}</td>`).join('')}${r[3].map((v,i)=>`<td class="r${i?'':' g1'}">${fm(v)}</td>`).join('')}<td class="r g1">${typeof r[4]==='string'?r[4]:kd(r[4])}</td></tr>`}).join('')}
+  </tbody></table></div><p class="nt">Comparación en el horizonte común A1–A3; el payback sigue la lógica de cada plantilla. Margen bruto propio = benchmark HQ de tiendas propias en México. Δ = propia menos franquicia (en costes, negativo = más coste).</p></div>
+  <div style="display:flex;flex-direction:column;gap:14px">
+   <div class="card"><h4>EBITDA por año</h4><div class="lg"><span><i style="background:#A3A6AB"></i>Franquicia</span><span><i style="background:#1E9E6A"></i>Propia</span></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:end;height:150px">${[0,1,2].map(i=>`<div style="display:flex;flex-direction:column;justify-content:flex-end;height:100%"><div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;align-items:end"><div><b style="display:block;font-size:10.5px;text-align:center">${k(E[2][i])}</b>${bar(E[2][i],'#A3A6AB')}</div><div><b style="display:block;font-size:10.5px;text-align:center">${k(E[3][i])}</b>${bar(E[3][i],'#1E9E6A')}</div></div><em style="font-style:normal;font-size:11px;color:var(--mute);text-align:center;margin-top:6px">Año ${i+1}</em></div>`).join('')}</div></div>
+   <div class="card"><h4>Venta año 1 vs breakeven</h4><div class="cmp">${beRow(0,'Franquicia','#A3A6AB')}${beRow(1,'Propia','#1E9E6A')}</div>
+    <p class="nt">Margen bruto de breakeven: franquicia ${pc1(K.begm[0])} · propia ${pc1(K.begm[1])}.</p></div>
+  </div>
+ </div>
+ <div class="f3">
+  <div class="card rk"><h4>Retorno · 3 años</h4><div><span>EBITDA acumulado franquicia</span><b>${k(K.ecum[0])}</b></div><div><span>EBITDA acumulado propia</span><b class="up">${k(K.ecum[1])}</b></div><div><span>EBITDA incremental/año vs hoy</span><b><span class="dn">${k(K.inc[0])}</span> · <span class="up">${k(K.inc[1])}</span></b></div><div><span>TIR propia (método HQ, 7 años)</span><b>${nf1(K.irr[1]*100)}%</b></div></div>
+  <div class="card rk"><h4>Estructura · año 1 propia</h4><div><span>Margen de contribución</span><b>${pc1(K.cm[1])} <span style="color:var(--faint);font-weight:400">vs ${pc1(K.cm[0])}</span></b></div><div><span>Transporte a tienda</span><b>24.2% de la venta</b></div><div><span>Renta total</span><b>12.0% de la venta</b></div><div><span>Personal</span><b>8.9% de la venta</b></div></div>
+  <div class="card stone"><h4>Lectura del proyecto</h4><ul class="ins"><li><b>La diferencia está en el margen:</b> 68.6% como propia vs 31.0% como franquicia; aun con un transporte de ~24% de la venta, el margen de contribución sube 17.2 pp.</li><li><b>Reubicada como franquicia gana menos que hoy:</b> EBITDA de ${k(K.e1[0])} en el año 1 frente a ${k(f.cur.e)} actuales (${k(K.inc[0])} al año) y sin payback.</li><li><b>Como propia se paga en ${nf1(K.pb[1])} años:</b> ${k(K.ecum[1])} de EBITDA en 3 años con ${k(K.capex[1])} de CAPEX y TIR de ${nf1(K.irr[1]*100)}%.</li></ul></div>
+ </div></div></div>`}
 function finToggle(id){FINOPEN[id]=!FINOPEN[id];const p=document.getElementById('finp-'+id),b=document.getElementById('finb-'+id);if(p)p.classList.toggle('on',!!FINOPEN[id]);if(b){b.classList.toggle('on',!!FINOPEN[id]);b.querySelector('.ar').textContent=FINOPEN[id]?'▴':'▾'}}
-function finInject(){Object.keys(CFIN).forEach(id=>{const c=document.querySelector(`#v-${id} .chips`);if(!c||document.getElementById('finb-'+id))return;
+function finInject(){Object.keys(PFIN).forEach(id=>{const v=document.getElementById('v-'+id);const w=v&&v.querySelector('.wrap');if(!w||document.getElementById(id+'-pl'))return;
+ const nws=document.getElementById(id+'-nws')||document.getElementById(id+'-prs');const sn=v.querySelector('.secnav');const num=String((sn?sn.children.length:6)+1).padStart(2,'0');
+ const html=`<div class="sec" id="${id}-pl"><div class="eyebrow"><b>${num}</b>P&amp;L del proyecto</div>${PFIN[id].cmp?cmpPanel(id):projPanel(id).replace('class="finp','class="finp on')}</div>`;
+ if(nws){nws.insertAdjacentHTML('beforebegin',html);const b=nws.querySelector('.eyebrow b');if(b)b.textContent=String(+num+1).padStart(2,'0')}else w.insertAdjacentHTML('beforeend',html);
+ if(sn)sn.insertAdjacentHTML('beforeend',`<a href="#${id}-pl" onclick="event.preventDefault();document.getElementById('${id}-pl').scrollIntoView({behavior:'smooth'})"><span>${num}</span>P&amp;L proyecto</a>`)});
+ Object.keys(CFIN).forEach(id=>{const c=document.querySelector(`#v-${id} .chips`);if(!c||document.getElementById('finb-'+id))return;
  c.insertAdjacentHTML('afterend',`<div><button class="finbtn${FINOPEN[id]?' on':''}" id="finb-${id}" onclick="finToggle('${id}')"><i>€</i>Finanzas corner<em>${CFIN[id].code} Liverpool</em><span class="ar" style="margin-left:4px">${FINOPEN[id]?'▴':'▾'}</span></button></div>${finPanel(id)}`)})}
 /* ===== UX layer ===== */
 const UX={coarse:matchMedia('(pointer:coarse)')};
