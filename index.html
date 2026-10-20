@@ -1102,6 +1102,53 @@ body.nofl{overflow:hidden}
 .cm-ev{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;margin:5px 0;text-decoration:none;color:inherit;font-size:13px}
 .cm-ev:hover{border-color:#0F6CBD}.cm-ev b{font-variant-numeric:tabular-nums;white-space:nowrap}.cm-ev span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cm-ev em{font-style:normal;color:#0F6CBD;font-size:12px;white-space:nowrap}
 @media(max-width:760px){.cm-go span{display:none}#calm{align-items:flex-end;padding:0}#calm .cm-pn{width:100%;border-radius:26px 26px 0 0;max-height:90dvh;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 22px);transform:translateY(100%)}#calm.on .cm-pn{transform:none}}
+
+.fin{margin-top:8px}
+.fin .fh{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;border:1px solid var(--line);border-radius:18px;padding:12px 16px;font-size:12.5px;color:var(--mute);margin:18px 0 14px}
+.fin .fh b{color:var(--ink);font-weight:600}
+.fin .tag{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:4px 10px;font-size:11.5px;font-weight:600}
+.t-up{background:var(--mint);color:var(--green-d)}.t-dn{background:var(--red-bg);color:var(--red)}.t-nu{background:var(--blue-bg);color:var(--blue)}.t-pre{background:var(--amber-bg);color:var(--amber)}
+.fk{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.fk .k{border:1px solid var(--line);border-radius:20px;padding:16px 16px 14px;background:#fff}
+.fk .l{font-size:12px;color:var(--mute)}
+.fk .v{font-size:30px;font-weight:650;letter-spacing:-.04em;margin:6px 0 4px;font-variant-numeric:tabular-nums}
+.fk .v small{font-size:14px;color:var(--faint);font-weight:500;letter-spacing:0}
+.fk .c{display:flex;flex-direction:column;gap:3px;font-size:11.5px;color:var(--mute)}
+.fk .c span{display:flex;justify-content:space-between;gap:6px}
+.up{color:var(--green);font-weight:600}.dn{color:var(--red);font-weight:600}
+.fg{display:grid;grid-template-columns:1.1fr 1fr;gap:14px;margin-top:14px}
+.fg .card h4{font-size:13px;margin:0 0 12px;color:var(--ink);font-weight:600}
+.fg .card p.nt{font-size:11px;color:var(--faint);margin:10px 0 0}
+.bars3 .r{display:grid;grid-template-columns:86px 1fr;gap:10px;align-items:center;margin:9px 0}
+.bars3 .r>span{font-size:12px;color:var(--ink-2)}
+.bars3 .bb{display:flex;flex-direction:column;gap:3px}
+.bars3 i{display:block;height:8px;border-radius:9px}
+.bars3 .bb div{display:grid;grid-template-columns:1fr 64px;gap:8px;align-items:center;font-size:11px;color:var(--mute);font-variant-numeric:tabular-nums}
+.lg{display:flex;gap:14px;font-size:11px;color:var(--mute);margin-bottom:6px}.lg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.wf{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:end;height:190px;margin-top:6px}
+.wf .col{display:flex;flex-direction:column;justify-content:flex-end;height:100%;position:relative}
+.wf .bar{border-radius:8px 8px 4px 4px}
+.wf .sp{flex:none}
+.wf b{font-size:12px;text-align:center;font-variant-numeric:tabular-nums;margin-bottom:4px}
+.wf em{font-style:normal;font-size:11px;color:var(--mute);text-align:center;margin-top:6px;line-height:1.25}
+.f3{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:14px;margin-top:14px}
+.prog{height:12px;border-radius:9px;background:var(--stone);overflow:hidden;margin:12px 0 8px;position:relative}
+.prog i{position:absolute;inset:0 auto 0 0;background:var(--green);border-radius:9px}
+.rk div{display:flex;justify-content:space-between;font-size:12.5px;padding:7px 0;border-bottom:1px solid var(--line)}.rk div:last-child{border:0}
+.ins li{font-size:12.5px;line-height:1.5;margin:0 0 8px;color:var(--ink-2)}.ins{padding-left:18px;margin:6px 0 0}
+.src{font-size:11px;color:var(--faint);margin-top:12px}
+@media(max-width:980px){.fk{grid-template-columns:1fr 1fr}.fg,.f3{grid-template-columns:1fr}}
+
+.finbtn{display:inline-flex;align-items:center;gap:8px;margin-top:14px;border:1px solid var(--ink);background:#fff;color:var(--ink);border-radius:999px;padding:9px 16px 9px 12px;font-size:13px;font-weight:600;cursor:pointer}
+.finbtn i{width:22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-style:normal;font-size:12px}
+.finbtn em{font-style:normal;font-weight:400;color:var(--mute);margin-left:2px}
+.finbtn.on{background:var(--ink);color:#fff}.finbtn.on i{background:#fff;color:var(--ink)}.finbtn.on em{color:rgba(255,255,255,.6)}
+.finp{border:1px solid var(--line);border-radius:28px;padding:22px 22px 18px;margin-top:16px;background:#FCFCFB;display:none}
+.finp.on{display:block;animation:fade .4s var(--ease)}
+.finp .ttl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.finp h3{font-size:24px;letter-spacing:-.03em;margin:10px 0 0;font-weight:650}
+.finp .fin{margin:0}
+@media(max-width:760px){.finp{padding:16px 14px;border-radius:22px}.finp h3{font-size:19px}.fk .v{font-size:24px}.wf{height:150px}}
 </style></head><body>
 <nav class="nav"><span class="pf">PARFOIS</span><span id="ttl"></span><div class="tabs" id="cities"></div><div class="cur" id="cur"><button data-c="MXN">MXN</button><button data-c="EUR" class="on">EUR</button><label title="Tipo de cambio MXN por EUR">TC <input id="fx" type="number" step="0.05" min="1" value="20.50"></label></div><button class="eye on" id="eye" title="Mostrar u ocultar cifras de venta">Cifras visibles</button></nav>
 <nav class="nav nav2 hide" id="nav2"><div class="tabs" id="tabs"></div></nav>
@@ -1682,6 +1729,60 @@ function wire(){
  addEventListener('resize',()=>{if(PLANS[CUR])fit(CUR)})}
 function noDot(){document.querySelectorAll('#main h1,#main h2,#main h3').forEach(h=>{const w=document.createTreeWalker(h,NodeFilter.SHOW_TEXT);let n,last=null;while(n=w.nextNode())if(n.nodeValue.trim())last=n;if(last)last.nodeValue=last.nodeValue.replace(/\.\s*$/,'')})}
 function build(){Object.keys(LM).forEach(k=>{try{LM[k].remove()}catch(e){}delete LM[k]});document.getElementById('main').innerHTML=mxOv()+overview()+D.malls.map(mall).join('')+agenda();noDot();wire();document.getElementById('days').onclick=e=>{const b=e.target.closest('button');if(b)showDay(b.dataset.d)}}
+
+/* ---------- FINANZAS CORNER (Store financial report · agosto 2026 · EUR) ---------- */
+const CFIN={
+'4':{code:'M19',nm:'Liverpool Perisur',ap:'07/12/2024',mad:1,sa:32,ta:40,r:124112.3,b:86239.56,ly:38436.65,fy:122088.92,m2:3878.51,pe:9879.35,peb:9565.58,ft:1.16,co:41975.5,cob:29321.45,e:23330.66,eb:12047.15,ely:3347.07,rk:[13,5,14],sh:.0406,
+ h:'El corner ya superó el budget de todo el año: venta +43.9% vs budget YTD',
+ ins:['<b>Rentable y por encima del plan:</b> margen EBITDA de 18.8% contra 14.0% presupuestado.','<b>Productividad media:</b> €3,879/m², 4% debajo de la media de corners; el salto vs 2025 viene del primer año completo.','<b>Acción:</b> subir el budget del 2º semestre y usar Perisur como argumento en la negociación de la tienda propia.']},
+'30':{code:'M21',nm:'Liverpool Galerías Guadalajara',ap:'26/09/2025',mad:0,sa:30,ta:30,r:115823.8,b:72284.36,ly:0,fy:166163.76,m2:3860.79,pe:11623.19,peb:9370.5,ft:1.24,co:39523.21,cob:24586.4,e:18358.2,eb:8342.24,ely:null,rk:[14,13,10],sh:.0378,
+ h:'Primer año por encima del plan: venta +60.2% vs budget y EBITDA más que duplicado',
+ ins:['<b>Por encima del plan:</b> EBITDA de €18.4k contra €8.3k presupuestado; margen de 15.9% vs 11.5%.','<b>Productividad en la media:</b> €3,861/m², #14 de 22 corners; personal en 10.0% de la venta vs 13.0% de budget.','<b>Acción:</b> lleva 69.7% del budget anual a agosto; mantener el ritmo y usarlo como referencia para la entrada de tienda en Guadalajara.']}};
+const CFAVG=4031;const FINOPEN={};
+const cfm=v=>v==null?'—':SHOW?(CURR==='EUR'?'€'+(Math.abs(v)>=1e6?nf1(v/1e6)+'M':nf1(v/1e3)+'k'):'$'+(Math.abs(v*FX)>=1e6?nf1(v*FX/1e6)+'M':nf1(v*FX/1e3)+'k')):'•••';
+const cfm2=v=>SHOW?(CURR==='EUR'?'€'+nf(v):'$'+nf(v*FX)):'•••';
+const cpc=v=>(v>=0?'▲ +':'▼ −')+nf1(Math.abs(v*100))+'%';
+const cpp=v=>(v>=0?'▲ +':'▼ −')+nf1(Math.abs(v*100))+' pp';
+function finPanel(id){const f=CFIN[id];if(!f)return '';
+ const rb=f.r/f.b-1,rly=f.ly?f.r/f.ly-1:null,em=f.e/f.r,emb=f.eb/f.b,eb=f.e/f.eb-1,pp=f.pe/f.r,ppb=f.peb/f.b,cp=f.co/f.r,cpb=f.cob/f.b,fyp=f.r/f.fy,oth=f.r-f.pe-f.co-f.e;
+ const W=v=>Math.max(0,Math.min(100,v/f.r*100)).toFixed(1)+'%',H=v=>Math.round(Math.abs(v)/f.r*150);
+ const cls=v=>v>=0?'up':'dn',inv=v=>v<=0?'up':'dn';
+ const tags=`<span class="tag ${f.mad?'t-up':'t-nu'}">● ${f.mad?'Madura · &gt;12 meses':'Nueva · &lt;12 meses'}</span><span class="tag ${rb>=0?'t-up':'t-dn'}">${rb>=0?'▲ Supera budget':'▼ Bajo budget'}</span>`;
+ const hp=H(f.pe),hc=H(f.co),ho=H(oth),he=H(f.e);
+ return `<div class="finp${FINOPEN[id]?' on':''}" id="finp-${id}"><div class="ttl">Finanzas corner · YTD agosto 2026</div><div class="fin"><h3>${f.h}</h3>
+ <div class="fh"><span><b>${f.code} · ${f.nm}</b></span><span>Corner Liverpool</span><span>Apertura ${f.ap}</span><span>${f.sa} m² venta · ${f.ta} m² total</span>${tags}<span style="margin-left:auto">Fuente: Store financial report · agosto 2026</span></div>
+ <div class="fk">
+  <div class="k"><div class="l">Venta YTD</div><div class="v">${cfm(f.r)}</div><div class="c"><span>vs budget <b class="${cls(rb)}">${cpc(rb)}</b></span><span>vs año anterior <b class="${rly==null?'':cls(rly)}">${rly==null?'tienda nueva':cpc(rly)}</b></span></div></div>
+  <div class="k"><div class="l">Venta por m²</div><div class="v">${cfm2(f.m2)}</div><div class="c"><span>vs año anterior <b class="${rly==null?'':cls(rly)}">${rly==null?'—':cpc(rly)}</b></span><span>media corners <b>${cfm2(CFAVG)}</b></span></div></div>
+  <div class="k"><div class="l">EBITDA YTD</div><div class="v">${cfm(f.e)}</div><div class="c"><span>margen <b class="${cls(em-emb)}">${nf1(em*100)}%</b> · budget ${nf1(emb*100)}%</span><span>vs budget <b class="${cls(eb)}">${cpc(eb)}</b></span></div></div>
+  <div class="k"><div class="l">Personal · % venta</div><div class="v">${nf1(pp*100)}<small>%</small></div><div class="c"><span>budget <b>${nf1(ppb*100)}%</b> <b class="${inv(pp-ppb)}">${cpp(pp-ppb)}</b></span><span>${cfm(f.pe)} · ${nf1(f.ft)} FTE</span></div></div>
+  <div class="k"><div class="l">Comisión Liverpool · % venta</div><div class="v">${nf1(cp*100)}<small>%</small></div><div class="c"><span>budget <b>${nf1(cpb*100)}%</b> <b class="${inv(cp-cpb)}">${cpp(cp-cpb)}</b></span><span>${cfm(f.co)}</span></div></div>
+ </div>
+ <div class="fg">
+  <div class="card"><h4>Real vs budget vs año anterior · YTD</h4><div class="lg"><span><i style="background:#111"></i>Real</span><span><i style="background:#A3A6AB"></i>Budget</span>${f.ly?'<span><i style="background:#D9DAD8"></i>Año anterior</span>':''}</div>
+   <div class="bars3">
+   <div class="r"><span>Venta</span><div class="bb"><div><i style="width:100%;background:#111"></i>${cfm(f.r)}</div><div><i style="width:${W(f.b)};background:#A3A6AB"></i>${cfm(f.b)}</div>${f.ly?`<div><i style="width:${W(f.ly)};background:#D9DAD8"></i>${cfm(f.ly)}</div>`:''}</div></div>
+   <div class="r"><span>Comisión</span><div class="bb"><div><i style="width:${W(f.co)};background:#111"></i>${cfm(f.co)}</div><div><i style="width:${W(f.cob)};background:#A3A6AB"></i>${cfm(f.cob)}</div></div></div>
+   <div class="r"><span>Personal</span><div class="bb"><div><i style="width:${W(f.pe)};background:#111"></i>${cfm(f.pe)}</div><div><i style="width:${W(f.peb)};background:#A3A6AB"></i>${cfm(f.peb)}</div></div></div>
+   <div class="r"><span>EBITDA</span><div class="bb"><div><i style="width:${W(f.e)};background:#1E9E6A"></i>${cfm(f.e)}</div><div><i style="width:${W(f.eb)};background:#A3A6AB"></i>${cfm(f.eb)}</div>${f.ely!=null?`<div><i style="width:${W(Math.max(0,f.ely))};background:#D9DAD8"></i>${cfm(f.ely)}</div>`:''}</div></div>
+   </div><p class="nt">${f.ly?'El reporte trae cifras acumuladas YTD; no incluye la serie mensual.':'Abrió en septiembre de 2025: sin comparable contra el año anterior.'}</p></div>
+  <div class="card"><h4>De la venta al EBITDA · YTD</h4>
+   <div class="wf">
+    <div class="col"><b>${cfm(f.r)}</b><div class="bar" style="height:150px;background:#111"></div><em>Venta</em></div>
+    <div class="col"><b>−${cfm(f.pe)}</b><div class="bar" style="height:${hp}px;background:#C8372D;opacity:.85"></div><div class="sp" style="height:${150-hp}px"></div><em>Personal</em></div>
+    <div class="col"><b>−${cfm(f.co)}</b><div class="bar" style="height:${hc}px;background:#C8372D;opacity:.85"></div><div class="sp" style="height:${150-hp-hc}px"></div><em>Comisión Liverpool</em></div>
+    <div class="col"><b>−${cfm(oth)}</b><div class="bar" style="height:${ho}px;background:#C8372D;opacity:.55"></div><div class="sp" style="height:${he}px"></div><em>Otros costes*</em></div>
+    <div class="col"><b>${cfm(f.e)}</b><div class="bar" style="height:${he}px;background:#1E9E6A"></div><em>EBITDA · ${nf1(em*100)}%</em></div>
+   </div><p class="nt">*Otros costes = venta − personal − comisión − EBITDA. El reporte no los desglosa.</p></div>
+ </div>
+ <div class="f3">
+  <div class="card"><h4>Avance vs budget anual</h4><div class="v" style="font-size:30px;font-weight:650;letter-spacing:-.04em">${nf1(fyp*100)}%</div><div class="prog"><i style="width:${Math.min(100,fyp*100).toFixed(1)}%"></i></div><div style="font-size:12px;color:var(--mute)">${cfm(f.r)} vendidos de ${cfm(f.fy)} presupuestados para todo 2026, con 4 meses por delante.</div></div>
+  <div class="card rk"><h4>Posición entre 22 corners Liverpool</h4><div><span>Venta por m²</span><b>#${f.rk[0]}</b></div><div><span>Margen EBITDA</span><b>#${f.rk[1]}</b></div><div><span>Cumplimiento de budget</span><b>#${f.rk[2]}</b></div><div><span>Peso en la venta de México</span><b>${nf1(f.sh*100)}%</b></div></div>
+  <div class="card stone"><h4>Lectura de corner</h4><ul class="ins">${f.ins.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+ </div></div></div>`}
+function finToggle(id){FINOPEN[id]=!FINOPEN[id];const p=document.getElementById('finp-'+id),b=document.getElementById('finb-'+id);if(p)p.classList.toggle('on',!!FINOPEN[id]);if(b){b.classList.toggle('on',!!FINOPEN[id]);b.querySelector('.ar').textContent=FINOPEN[id]?'▴':'▾'}}
+function finInject(){Object.keys(CFIN).forEach(id=>{const c=document.querySelector(`#v-${id} .chips`);if(!c||document.getElementById('finb-'+id))return;
+ c.insertAdjacentHTML('afterend',`<div><button class="finbtn${FINOPEN[id]?' on':''}" id="finb-${id}" onclick="finToggle('${id}')"><i>€</i>Finanzas corner<em>${CFIN[id].code} Liverpool</em><span class="ar" style="margin-left:4px">${FINOPEN[id]?'▴':'▾'}</span></button></div>${finPanel(id)}`)})}
 /* ===== UX layer ===== */
 const UX={coarse:matchMedia('(pointer:coarse)')};
 function uxTitle(v){const m=D.malls.find(x=>x.id===v);return m?m.name:v==='mx'?'Overview México':v==='ov'?'Ruta de visitas':v==='agenda'?'Agenda':''}
@@ -1723,7 +1824,7 @@ function uxEnhance(){const L=D.malls;
   el.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&!el.classList.contains('fsx'))e.stopImmediatePropagation()},true);
   if(!el.querySelector('.ptap'))el.insertAdjacentHTML('beforeend',`<button class="ptap" onclick="event.stopPropagation();uxFs('${id}',true)">⤢ Explorar plano</button>`)});
  if(UX.coarse.matches)document.querySelectorAll('.sec[id$="-pla"] .sub').forEach(s=>{s.textContent='Toca «Explorar plano» para abrirlo a pantalla completa; arrastra para moverte y usa dos dedos para acercar.'})}
-const _build=build;build=function(){_build();uxEnhance()};
+const _build=build;build=function(){_build();finInject();uxEnhance()};
 const _go=go;go=function(v,keep){if(!keep)document.querySelectorAll('.plan.fsx').forEach(p=>uxFs(p.id.slice(3),false));_go(v,keep);
  const m=D.malls.find(x=>x.id===v);document.body.classList.toggle('n2',!!m);
  const t=document.getElementById('ttl');if(t)t.textContent=uxTitle(v);
