@@ -1873,11 +1873,12 @@ function cmpPanel(id){const f=PFIN[id],K=f.kp;
   <div class="card stone"><h4>Lectura del proyecto</h4><ul class="ins"><li><b>La diferencia está en el margen:</b> 68.6% como propia vs 31.0% como franquicia; aun con un transporte de ~24% de la venta, el margen de contribución sube 17.2 pp.</li><li><b>Reubicada como franquicia gana menos que hoy:</b> EBITDA de ${k(K.e1[0])} en el año 1 frente a ${k(f.cur.e)} actuales (${k(K.inc[0])} al año) y sin payback.</li><li><b>Como propia se paga en ${nf1(K.pb[1])} años:</b> ${k(K.ecum[1])} de EBITDA en 3 años con ${k(K.capex[1])} de CAPEX y TIR de ${nf1(K.irr[1]*100)}%.</li></ul></div>
  </div></div></div>`}
 function finToggle(id){FINOPEN[id]=!FINOPEN[id];const p=document.getElementById('finp-'+id),b=document.getElementById('finb-'+id);if(p)p.classList.toggle('on',!!FINOPEN[id]);if(b){b.classList.toggle('on',!!FINOPEN[id]);b.querySelector('.ar').textContent=FINOPEN[id]?'▴':'▾'}}
+const PLOPEN={};
+function plToggle(id,force){PLOPEN[id]=force===undefined?!PLOPEN[id]:force;const d=document.getElementById('pld-'+id),b=document.getElementById('plb-'+id);if(d)d.style.display=PLOPEN[id]?'block':'none';if(b){b.classList.toggle('on',!!PLOPEN[id]);b.querySelector('.ar').textContent=PLOPEN[id]?'▴':'▾';b.childNodes[1].textContent=(PLOPEN[id]?'Ocultar':'Ver')+' P&L del proyecto'}}
 function finInject(){Object.keys(PFIN).forEach(id=>{const v=document.getElementById('v-'+id);const w=v&&v.querySelector('.wrap');if(!w||document.getElementById(id+'-pl'))return;
- const nws=document.getElementById(id+'-nws')||document.getElementById(id+'-prs');const sn=v.querySelector('.secnav');const num=String((sn?sn.children.length:6)+1).padStart(2,'0');
- const html=`<div class="sec" id="${id}-pl"><div class="eyebrow"><b>${num}</b>P&amp;L del proyecto</div>${PFIN[id].cmp?cmpPanel(id):projPanel(id).replace('class="finp','class="finp on')}</div>`;
- if(nws){nws.insertAdjacentHTML('beforebegin',html);const b=nws.querySelector('.eyebrow b');if(b)b.textContent=String(+num+1).padStart(2,'0')}else w.insertAdjacentHTML('beforeend',html);
- if(sn)sn.insertAdjacentHTML('beforeend',`<a href="#${id}-pl" onclick="event.preventDefault();document.getElementById('${id}-pl').scrollIntoView({behavior:'smooth'})"><span>${num}</span>P&amp;L proyecto</a>`)});
+ const n=Math.max(0,...[...v.querySelectorAll('.sec > .eyebrow b')].map(b=>+b.textContent||0));const num=String(n+1).padStart(2,'0');
+ const body=PFIN[id].cmp?cmpPanel(id):projPanel(id).replace('class="finp','class="finp on');
+ w.insertAdjacentHTML('beforeend',`<div class="sec" id="${id}-pl" data-n="${num}"><div class="eyebrow"><b>${num}</b>P&amp;L del proyecto</div><button class="finbtn${PLOPEN[id]?' on':''}" id="plb-${id}" onclick="plToggle('${id}')"><i>€</i>${PLOPEN[id]?'Ocultar':'Ver'} P&amp;L del proyecto<em>${PFIN[id].cmp?'franquicia vs tienda propia':'simulación a 3 años'}</em><span class="ar" style="margin-left:4px">${PLOPEN[id]?'▴':'▾'}</span></button><div id="pld-${id}" style="display:${PLOPEN[id]?'block':'none'}">${body}</div></div>`)});
  Object.keys(CFIN).forEach(id=>{const c=document.querySelector(`#v-${id} .chips`);if(!c||document.getElementById('finb-'+id))return;
  c.insertAdjacentHTML('afterend',`<div><button class="finbtn${FINOPEN[id]?' on':''}" id="finb-${id}" onclick="finToggle('${id}')"><i>€</i>Finanzas corner<em>${CFIN[id].code} Liverpool</em><span class="ar" style="margin-left:4px">${FINOPEN[id]?'▴':'▾'}</span></button></div>${finPanel(id)}`)})}
 /* ===== UX layer ===== */
@@ -1912,6 +1913,10 @@ function uxEnhance(){const L=D.malls;
   w.insertAdjacentHTML('beforeend',`<div class="mnav">${c(p,'pv','← Anterior')}${c(n,'nx','Siguiente →')}<div class="mnav-k">También con <kbd>←</kbd> <kbd>→</kbd> del teclado</div></div>`)});
  L.forEach(m=>{const nw=document.getElementById(m.id+'-nws'),sn=document.querySelector('#v-'+m.id+' .secnav');if(!nw||!sn||sn.querySelector('[href$="-nws"]'))return;
   sn.insertAdjacentHTML('beforeend',`<a href="#${m.id}-nws" onclick="event.preventDefault();document.getElementById('${m.id}-nws').scrollIntoView({behavior:'smooth'})"><span>0${sn.children.length+1}</span>Noticias</a>`)});
+ L.forEach(m=>{const pr=document.getElementById(m.id+'-prs'),sn=document.querySelector('#v-'+m.id+' .secnav');if(!pr||!sn||sn.querySelector('[href$="-prs"]'))return;const nb=pr.querySelector('.eyebrow b');
+  sn.insertAdjacentHTML('beforeend',`<a href="#${m.id}-prs" onclick="event.preventDefault();document.getElementById('${m.id}-prs').scrollIntoView({behavior:'smooth'})"><span>${nb?nb.textContent:''}</span>En la prensa</a>`)});
+ Object.keys(PFIN).forEach(id=>{const sec=document.getElementById(id+'-pl'),sn=document.querySelector('#v-'+id+' .secnav');if(!sec||!sn||sn.querySelector('[href$="-pl"]'))return;
+  sn.insertAdjacentHTML('beforeend',`<a href="#${id}-pl" onclick="event.preventDefault();plToggle('${id}',true);document.getElementById('${id}-pl').scrollIntoView({behavior:'smooth'})"><span>${sec.dataset.n}</span>P&amp;L proyecto</a>`)});
  const tr0=v=>!v||v==='transparent'||v==='rgba(0, 0, 0, 0)';
  document.querySelectorAll('.tw table').forEach(t=>{const hr=t.tHead&&t.tHead.rows[0];if(!hr)return;let ix=-1;
   [...hr.cells].forEach((c,i)=>{if(ix<0&&/centro|corner|nombre|regi[oó]n|plaza|marca|tienda|actividad/i.test(c.textContent))ix=i});if(ix<0)return;const n=hr.cells.length;
